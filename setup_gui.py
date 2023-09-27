@@ -14,7 +14,6 @@ from PyQt5.QtWidgets import (
     QWidget,
 )
 from edmbutton import PyDMEDMDisplayButton
-from epics import camonitor
 from epics.ca import withInitialContext
 from lcls_tools.common.pydm_tools.displayUtils import (
     ERROR_STYLESHEET,
@@ -26,7 +25,7 @@ from pydm import Display
 from pydm.widgets import PyDMLabel
 
 from gui_utils import SetupSignals
-from setup_linac import SetupCavity, SETUP_CRYOMODULES
+from setup_linac import SETUP_CRYOMODULES, SetupCavity
 
 
 class ShutdownWorker(QRunnable):
@@ -423,7 +422,7 @@ class SetupGUI(Display):
             PV(f"ACCL:L{i}B:1:AACTMEANSUM") for i in range(4)
         ]
 
-        self.update_readback()
+        # self.update_readback()
 
         linac_tab_widget: QTabWidget = self.ui.tabWidget_linac
 
@@ -444,7 +443,7 @@ class SetupGUI(Display):
 
             vlayout.addLayout(hlayout)
             vlayout.addWidget(linac.cm_tab_widget)
-            camonitor(linac.aact_pv, callback=self.update_readback)
+            # camonitor(linac.aact_pv, callback=self.update_readback)
 
     def update_readback(self, **kwargs):
         readback = 0

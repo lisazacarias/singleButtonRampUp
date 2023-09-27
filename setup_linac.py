@@ -32,6 +32,11 @@ class SetupCavity(Cavity):
         self.running: bool = False
 
     @property
+    def microsteps_per_hz(self):
+        # return 1 / self.steppertuner.hz_per_microstep
+        return 1 / -0.00484708
+
+    @property
     def signals(self):
         return self._signals
 

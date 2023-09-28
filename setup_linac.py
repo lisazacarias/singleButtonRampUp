@@ -30,6 +30,7 @@ class SetupCavity(Cavity):
         self._rf_ramp_requested: bool = False
 
         self.running: bool = False
+        self.loaded_q_upper_limit = 8
 
     @property
     def microsteps_per_hz(self):

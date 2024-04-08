@@ -13,6 +13,7 @@ from setup_linac import (
     STATUS_RUNNING_VALUE,
     STATUS_READY_VALUE,
     STATUS_ERROR_VALUE,
+    SetupCryomodule,
 )
 
 
@@ -363,8 +364,17 @@ class TestSetupCavity(TestCase):
 
 
 class TestSetupCryomodule(TestCase):
+    def setUp(self):
+        self.setup_cm: SetupCryomodule = SETUP_MACHINE.cryomodules["02"]
+
     def test_clear_abort(self):
-        self.skipTest("Not yet implemented")
+        for setup_cavity in self.setup_cm.cavities.values():
+            setup_cavity.clear_abort = mock.MagicMock()
+
+        self.setup_cm.clear_abort()
+
+        for setup_cavity in self.setup_cm.cavities.values():
+            setup_cavity.clear_abort.assert_called()
 
 
 class TestSetupLinac(TestCase):
